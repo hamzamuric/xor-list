@@ -1,4 +1,5 @@
 #include <iostream>
+#include <utility>
 
 #define XOR_PTR(T, x, y) ((XorNode<T>*)((uintptr_t)x ^ (uintptr_t)y))
 
@@ -13,7 +14,7 @@ private:
     XorNode *link;
 
 public:
-    XorNode(T data, XorNode *link) : data(data), link(link) {}
+    XorNode(T data, XorNode *link) : data(std::move(data)), link(link) {}
 
     XorNode *xorLink(XorNode *other) const {
         auto ptr = XOR_PTR(T, link, other);
