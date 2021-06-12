@@ -38,6 +38,20 @@ private:
 public:
     XorList() : head(nullptr), tail(nullptr) {}
 
+    ~XorList() {
+        XorNode<T> *prev = nullptr;
+        XorNode<T> *curr = head;
+
+        while (curr->link != prev) {
+            XorNode<T> *temp = curr;
+            curr = curr->xorLink(prev);
+            delete prev;
+            prev = temp;
+        }
+        delete prev;
+        delete curr;
+    }
+
     void prepend(T data) {
         auto node = new XorNode<T>(data, head);
         if (!head) {
